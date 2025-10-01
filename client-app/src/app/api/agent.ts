@@ -10,9 +10,9 @@ const sleep = (delay: number) => {
     })
 }
 
-axios.defaults.baseURL = "http://localhost:5000/api";
+axios.defaults.baseURL = "https://localhost:5001/api";
 
-axios.interceptors.response.use(async response => {
+axios.interceptors.response.use(async (response: AxiosResponse) => {
     await sleep(1000);
     return response;
 
@@ -20,7 +20,7 @@ axios.interceptors.response.use(async response => {
     const { data, status, config } = error.response as AxiosResponse;
     switch (status) {
         case 400:
-            if (config.method === "get" && Object.prototype.hasOwnProperty.call(data.errors,"id")) {
+            if (config.method === "get" && Object.hasOwn(data.errors, "id")) {
                 router.navigate("not-found");
             }
             if (data.errors) {
