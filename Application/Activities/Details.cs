@@ -8,14 +8,13 @@ namespace Application.Activities
     public class Details
     {
         public class Query : IRequest<Result<Activity>> { 
-            
-            public Guid Id {get; set;}
+            public required string Id {get; set;}
         };
 
         public class Handler : IRequestHandler<Query, Result<Activity>>
         {
-            private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly AppDbContext _context;
+            public Handler(AppDbContext context)
             {
                 _context = context;
 

@@ -17,6 +17,11 @@ axios.interceptors.response.use(async (response: AxiosResponse) => {
     return response;
 
 }, (error: AxiosError) => {
+    if (!error.response) {
+        toast.error('Network error - make sure API is running!');
+        return Promise.reject(error);
+    }
+
     const { data, status, config } = error.response as AxiosResponse;
     switch (status) {
         case 400:
