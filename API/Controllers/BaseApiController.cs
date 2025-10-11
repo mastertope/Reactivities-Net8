@@ -8,23 +8,21 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class BaseApiController : ControllerBase
     {
-        private IMediator _mediator;
+        private IMediator? _mediator;
 
         protected IMediator Mediator => _mediator ??=
-            HttpContext.RequestServices.GetService<IMediator>();
+            HttpContext.RequestServices.GetService<IMediator>()
+            ?? throw new InvalidOperationException("IMediator service is unavailable.");
 
-        protected ActionResult HandleResult<T>(Result<T> result)
+        protected ActionResult HandleResult<T>(Result<T>? result)
         {
-            if (result == null) return NotFound();
-            if (result.IsSuccess && result.Value is not null)
+            return result switch
             {
-                return Ok(result.Value);
-            }
-            if (result.IsSuccess && result.Value is null)
-            {
-                return NotFound();
-            }
-            return BadRequest(result.Error);
+                null => NotFound(),
+                { IsSuccess: true, Value: not null } => Ok(result.Value),
+                { IsSuccess: true, Value: null } => NotFound(),
+                _ => BadRequest(result.Error)
+            };
         }
     }
 }
