@@ -4,7 +4,7 @@ import ActivityForm from "../form/ActivityForm";
 import ActivityDetail from "../details/ActivityDetail";
 
 type Props = {
-    activities: Activity[]
+    activities: Activity[] | undefined
     selectActivity: (id: string) => void;
     cancelSelectActivity: () => void;
     selectedActivity?: Activity;

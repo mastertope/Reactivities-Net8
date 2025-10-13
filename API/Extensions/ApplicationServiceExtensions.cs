@@ -31,7 +31,7 @@ namespace API.Extensions
                 });
             });
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>());
-            services.AddAutoMapper(services, typeof(MappingProfiles).Assembly);
+            services.AddAutoMapper(cfg => { }, typeof(MappingProfiles).Assembly);
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssemblyContaining<CreateActivity>();
 
