@@ -7,7 +7,7 @@ export default function ActivityList() {
 
     if (!activities || isPending) return <Typography>Loading activities...</Typography>;
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
+    <Box sx={{display: 'flex', flexDirection: 'column', gap: 3, mb: 3}}>
         {activities.map(activity => (
             <ActivityCard 
               key={activity.id} 
